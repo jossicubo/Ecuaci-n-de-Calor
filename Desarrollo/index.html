@@ -1,0 +1,547 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../difefini/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+    
+    
+      
+        <title>Métodos numéricos - Ecuación de calor en 2D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metodos-numericos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Ecuación de calor en 2D" class="md-header__button md-logo" aria-label="Ecuación de calor en 2D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ecuación de calor en 2D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Métodos numéricos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Ecuación de calor en 2D" class="md-nav__button md-logo" aria-label="Ecuación de calor en 2D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Ecuación de calor en 2D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ecuación de calor en 2D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Métodos numéricos
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Métodos numéricos
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#series-de-fourier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Series de Fourier
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Series de Fourier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tomemos-el-siguiente-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tomemos el siguiente ejemplo:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diferencias-finitas-centrales-para-la-segunda-derivada" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diferencias Finitas Centrales para la segunda derivada
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../difefini/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diferencias Finitas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Series de Fourier
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#series-de-fourier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Series de Fourier
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Series de Fourier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tomemos-el-siguiente-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tomemos el siguiente ejemplo:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diferencias-finitas-centrales-para-la-segunda-derivada" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diferencias Finitas Centrales para la segunda derivada
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="metodos-numericos">Métodos numéricos</h1>
+<p>Para poder resolver la ecuación de Calor es necesario especificar tanto las condicones iniciales como las condiciones de frontera, de lo contrario la solución de la ecuación no está determinada por lo que conocer estas condiciones es necesario para obtener la solución completa y única.</p>
+<h2 id="series-de-fourier">Series de Fourier</h2>
+<p>La ecuación de calor es posible resolverla mediante series de fourier debido a que las series de Fourier pueden descomponer funciones complejas en funciones sinusoidales más sencillas. Además, como la ecuación de calor es una ecuación diferencial parcial (EDP) lineal, quiere decir que sus soluciones individuales, pueden ser sumadas de manera que también sean una solución.</p>
+<p>Para entender mejor la solución de la ecuación de calor es importante mencionar algunas propiedades que tienen las funciones Sinusoidales: seno y coseno</p>
+<ul>
+<li>Son soluciones propias de la ecuación homogénea:</li>
+</ul>
+<div class="arithmatex">\[\begin{align}
+\frac{d^{2}X }{dx^{2}}=-\lambda X
+\end{align}\]</div>
+<ul>
+<li>Son ortogonales, est facilita la descomposición de funciones complejas en sumas de estas funciones.</li>
+</ul>
+<h3 id="tomemos-el-siguiente-ejemplo">Tomemos el siguiente ejemplo:</h3>
+<p>Consideremos una placa rectangular delgada, con longitud a y anchura b cuya tempe-
+ratura viene dada por la función <span class="arithmatex">\(u(x, y, t)\)</span> que depende del tiempo <span class="arithmatex">\(t ≥ 0\)</span> y de la posición
+<span class="arithmatex">\((x, y)\)</span>. Buscamos determinar la solución <span class="arithmatex">\(u(x, y, t)\)</span> del problema inicial de frontera de la temperatura de la placa rectangular, que viene dado por el siguiente problema de la ecuación del
+calor:
+\begin{aligned}
+u_{t}=k\nabla ^{2}u &amp; 0 \le x \le  a, &amp; 0\le y \le b   &amp; t\gt 0
+\end{aligned}
+\begin{aligned}
+u(x,y,0) = f(x,y) &amp; 0 \le x \le  a, &amp; 0\le y \le b
+\end{aligned}
+\begin{aligned}
+u_{x}(0,y,t) = 0 &amp; u_{x}(a,y,t) = 0
+\end{aligned}</p>
+<p>Primero buscamos soluciones no triviales de la parte homogénea del problema inicial de la forma:
+<span class="arithmatex">\(U(x,y,t)=U(x,y)T(t)\)</span> y al sustituir en <span class="arithmatex">\(u_{t}=k\nabla ^{2}u\)</span>  observamos que existe un <span class="arithmatex">\(\lambda \epsilon\mathbb{R}\)</span> tal que <span class="arithmatex">\(U(x,y)\)</span> y <span class="arithmatex">\(T(t)\)</span> satisfacen:</p>
+<div class="arithmatex">\[\begin{aligned}
+T'+\lambda kT=0
+\end{aligned}\]</div>
+<div class="arithmatex">\[\begin{aligned}
+\nabla ^{2}+\lambda U =0
+\end{aligned}\]</div>
+<div class="arithmatex">\[\begin{aligned}
+U_{x}(0,y)=U_{x}(a,y)=0 &amp; &amp; (1)
+\end{aligned}\]</div>
+<div class="arithmatex">\[\begin{aligned}
+U(x,0)=U(x,b)=0
+\end{aligned}\]</div>
+<p>Posteriormente buscamos los valores de <span class="arithmatex">\(\lambda\epsilon\mathbb{R}\)</span> para los cuales la ecuación (1) tiene soluciones no nulas- Lo que resulta en las EDO:</p>
+<p>\begin{aligned}
+X''-\mu X = 0, &amp; X'(a)=0
+\end{aligned}
+\begin{aligned}
+Y' + (\lambda + \mu)Y =0 ; &amp; Y(0)=Y(b)=0
+\end{aligned}
+Posteriormente se realiza:</p>
+<ul>
+<li>
+<p>Se buscan las soluciones no triviales</p>
+</li>
+<li>
+<p>Se aplican las condiciones de frontera dadas al inicio</p>
+</li>
+<li>
+<p>Se determina el valor de <span class="arithmatex">\(\mu\)</span> para las soluciones no nulas</p>
+</li>
+<li>
+<p>Con las soluciones de <span class="arithmatex">\(\mu\)</span> se determinan los <span class="arithmatex">\(\lambda\)</span> para  las soluciones no nulas, obteniendo que una solución no nula asociada a <span class="arithmatex">\(\lambda\)</span> = <span class="arithmatex">\(\lambda_{mn}\)</span> está dada por:
+\begin{aligned}
+U_{mn}=X_{m}(x)Y_{n}(y) = cos(\frac{m\pi}{a}x)sen(\frac{m\pi}{b}y)
+\end{aligned}</p>
+</li>
+</ul>
+<p>Ahora integramos <span class="arithmatex">\(T'+\lambda kT=0\)</span> para obtener una solución no nula para <span class="arithmatex">\(\lambda\)</span>=<span class="arithmatex">\(\lambda_{mn}\)</span>, así:
+\begin{aligned}
+T'=-\lambda kT, &amp; \frac{T'}{T}=-\lambda k, &amp; \int_{}^{}\frac{T'}{T}dt =\int_{}^{}-\lambda k dt
+\
+ln\left| t \right|=-\lambda kT
+\end{aligned}</p>
+<p>Y una solución no nula del problema es
+\begin{aligned}
+T(t)=e^{-\lambda _{mn}kt}
+\end{aligned}</p>
+<p>Por tanto, la solución del problema es de la forma:
+\begin{aligned}
+u(x,y,t) = \sum_{m=0}^{\infty }\sum_{n=1}^{\infty }b_{mn}e^{-(\frac{m^{2}}{a^{2}}+\frac{n^{2}}{b^{2}})\pi^{2}kt}cos(\frac{m\pi}{a}x)sen(\frac{n\pi}{b}y)
+\end{aligned}</p>
+<p>donde las constantes <span class="arithmatex">\(b_{mn}\)</span> deben escogerse de manera que se cumpla la condición inicial homogénea <span class="arithmatex">\(u(x,y,0)\)</span>=<span class="arithmatex">\(f(x,y)\)</span> es decir:
+\begin{aligned}
+f(x,y) = \sum_{m=0}^{\infty }\sum_{n=1}^{\infty }b_{mn}cos(\frac{m\pi}{a}x)sen(\frac{n\pi}{b}y)
+\end{aligned}
+Y para este caso los coeficientes de la serie de Fourier doble vienen dados por:
+\begin{aligned}
+b_{0n}&amp; =\frac{4}{ab}\int_{0}^{a}\int_{0}^{b}f(x,y)\operatorname{sen}\Big(\frac{n\pi}{b}y\Big)dxdy, &amp; \mathrm{para~}m=0;
+\end{aligned}</p>
+<div class="arithmatex">\[\begin{aligned}
+b_{mn}&amp;=\frac{4}{ab}\int_{0}^{a}\int_{0}^{b}f(x,y)\cos\left(\frac{m\pi}{a}x\right)\mathrm{sen}\left(\frac{n\pi}{b}y\right)dxdy, &amp; \mathrm{para~}m\geq1. 
+\end{aligned}\]</div>
+<p>Y la solución para la placa rectangular es: 
+\begin{aligned}
+u(x,y,t)=&amp; \frac{1}{2}\sum_{n=1}^{\infty}b_{0n}\mathrm{e}^{-(n^{2}/b^{2})\pi^{2}kt}\operatorname{sen}\left(\frac{n\pi}{b}y\right)+\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}b_{mn}\mathrm{e}^{-(m^{2}/a^{2}+n^{2}/b^{2})\pi^{2}kt}\cos\left(\frac{m\pi}{a}x\right)\mathrm{sen}\left(\frac{n\pi}{b}y\right),
+\end{aligned}</p>
+<p>Para el ejemplo anterior se utilizó la siguiente referencia:
+Martínez, C. V. (s/f). La ecuación del calor. Usc.es. Recuperado el 12 de julio de 2024, de https://minerva.usc.es/xmlui/bitstream/handle/10347/26503/Villar_Mart%C3%ADnez_Cecilia.pdf</p>
+<h2 id="diferencias-finitas-centrales-para-la-segunda-derivada">Diferencias Finitas Centrales para la segunda derivada</h2>
+<p>En la clase de Diferencias Finitas; consideramos derivadas de primer orden, sus errores asociados y distintas metodologías. Podemos utilizar diferencias centrales para aproximar también segundas derivadas. El resultado se obtiene al considerar las diferencias centrales para la primera derivada en el punto <span class="arithmatex">\(x+(h/2)\)</span> y en el punto <span class="arithmatex">\(x - (h/2)\)</span>:</p>
+<div class="arithmatex">\[
+f'(x + h/2) \approx \frac{f(x + h) - f(x)}{h}, \quad f'(x - h/2) \approx \frac{f(x) - f(x - h)}{h}.
+\]</div>
+<p>Podemos aplicar diferencias centrales una vez más en en la segunda derivada para obtener nuestra aproximación
+\begin{align}
+f''(x) &amp;\approx \frac{f'(x + h/2) - f'(h - h/2)}{h} \
+&amp;= \frac{[f(x+h) - f(x)]/h - [f(x) - f(x - h)]/h}{h} \
+&amp;= \frac{f(x + h) - 2f(x) + f(x - h)}{h^2}.
+\end{align}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
